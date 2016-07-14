@@ -59,15 +59,15 @@ function moveTom() {
 
 function moveYup() {
     boxTom.speedY -= 1;
-    if (boxTom.speedY < -1) {
-      boxTom.speedY = -1;
+    if (boxTom.speedY < -2) {
+      boxTom.speedY = -2;
     }
 }
 
 function moveYdown() {
     boxTom.speedY += 1;
-    if (boxTom.speedY > 1) {
-      boxTom.speedY = 1;
+    if (boxTom.speedY > 2) {
+      boxTom.speedY = 2;
     }
 }
 
@@ -77,14 +77,14 @@ function moveYend() {
 
 function moveXleft() {
     boxTom.speedX -= 1;
-    if (boxTom.speedX < -1) {
-      boxTom.speedX = -1;
+    if (boxTom.speedX < -2) {
+      boxTom.speedX = -2;
     }
 }
 
 function moveXright() {
     boxTom.speedX += 1;
-    if (boxTom.speedX > 1) {
+    if (boxTom.speedX > 2) {
       boxTom.speedX = 1;
     }
 }
@@ -141,6 +141,8 @@ var keypressDx = function(d){
   }
 };
 
+
+var playerOneKeys = function() {
 $(document).on('keydown', keypressW);
 $(document).on('keyup', keypressWx);
 $(document).on('keydown', keypressS);
@@ -149,7 +151,9 @@ $(document).on('keydown', keypressA);
 $(document).on('keyup', keypressAx);
 $(document).on('keydown', keypressD);
 $(document).on('keyup', keypressDx);
+};
 
+setInterval(playerOneKeys, 20);
 
 //moving boxJerry
 
@@ -240,6 +244,8 @@ var keypressRightx = function(right){
   }
 };
 
+
+var playerTwoKeys = function(){
 $(document).on('keydown', keypressUp);
 $(document).on('keyup', keypressUpx);
 $(document).on('keydown', keypressDown);
@@ -248,3 +254,6 @@ $(document).on('keydown', keypressLeft);
 $(document).on('keyup', keypressLeftx);
 $(document).on('keydown', keypressRight);
 $(document).on('keyup', keypressRightx);
+};
+
+setInterval(playerTwoKeys, 20);
