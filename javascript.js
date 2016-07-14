@@ -10,10 +10,13 @@ var gameArea = {
       this.context = this.canvas.getContext("2d");
       document.body.insertBefore(this.canvas, document.body.childNodes[0]);
       this.interval = setInterval(moveTom, 20);
-    },
+  },
   clear : function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
+  },
+  stop : function() {
+      clearInterval(this.interval);
+  }
 };
 
 // Make Components Constructor -> blueprint for characters
@@ -33,6 +36,27 @@ var MakeComponents = function(width, height, color, x, y) {
   this.x += this.speedX;
   this.y += this.speedY;
   };
+  this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if (mytop === 0 || myleft === 0 || myright == gameArea.canvas.width || mybottom == gameArea.canvas.height) {
+          crash = 'wall';
+        }
+        else if ((mybottom < othertop) ||
+               (mytop > otherbottom) ||
+               (myright < otherleft) ||
+               (myleft > otherright)) {
+           crash = false;
+        }
+        return crash;
+    };
 
 };
 
@@ -47,13 +71,20 @@ function startGame() {
 startGame();
 
 function moveTom() {
+  if (boxTom.crashWith(boxJerry) == "wall") {
+        gameArea.stop();
+        $('#winner').html('Tom hit the wall!');
+    } else if (boxTom.crashWith(boxJerry) === true) {
+      gameArea.stop();
+      $('#winner').html('Tom caught Jerry!');
+    } else {
   gameArea.clear();
   boxTom.newPos();
   boxTom.update();
   boxJerry.newPos();
   boxJerry.update();
+  }
 }
-
 
 //Moving boxTom
 
