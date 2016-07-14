@@ -1,14 +1,24 @@
 var boxTom; //defining tom as a variable
 var boxJerry; //defining jerry as a variable
 
+//instruction event listners
+$("#instructions").hover(
+  function() {
+    $("#instructions2").show();
+  }, function() {
+    $("#instructions2").hide();
+  }
+);
+
+
 // Game Area Object
 var gameArea = {
   canvas: document.createElement("canvas"),
   start: function() {
     this.canvas.width = 700;
-    this.canvas.height = 400;
+    this.canvas.height = 500;
     this.context = this.canvas.getContext("2d");
-    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    document.body.insertBefore(this.canvas, document.body.childNodes[2]);
     this.interval = setInterval(moveTom, 20);
   },
   clear: function() {
@@ -58,8 +68,9 @@ var MakeComponents = function(width, height, color, x, y, type) {
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
     var crash = true;
-    if (mytop === 0 || myleft === 0 || myright == gameArea.canvas.width || mybottom == gameArea.canvas.height) {
+    if ((myright > gameArea.canvas.width) || (myleft < 0) || (mytop < 0) || (mybottom > gameArea.canvas.height)) {
       crash = 'wall';
+      console.log('wall');
     } else if ((mybottom < othertop) ||
       (mytop > otherbottom) ||
       (myright < otherleft) ||
@@ -74,8 +85,8 @@ var MakeComponents = function(width, height, color, x, y, type) {
 
 // Create Sprites and the Gameboard + Game initialisation
 function startGame() {
-  boxTom = new MakeComponents(64, 64, "images/tom.gif", 10, 120, "image");
-  boxJerry = new MakeComponents(64, 64, "images/jerry.gif", 60, 200, "image");
+  boxTom = new MakeComponents(56, 57, "images/tom.gif", 10, 120, "image");
+  boxJerry = new MakeComponents(56, 49, "images/jerry.gif", 60, 200, "image");
   gameArea.start();
 }
 
@@ -85,18 +96,20 @@ function moveTom() {
   if (boxJerry.x === 0) {
     boxJerry.x = gameArea.canvas.width;
   } else if (boxJerry.x === gameArea.canvas.width) {
+    console.log('jerry wall');
     boxJerry.x = 0;
   } else if (boxJerry.y === 0) {
+    console.log('jerry wall');
     boxJerry.y = gameArea.canvas.height;
   } else if (boxJerry.y === gameArea.canvas.height) {
     boxJerry.y = 0;
   }
   if (boxTom.crashWith(boxJerry) == "wall") {
     gameArea.stop();
-    $('#winner').html('Tom hit the wall!');
+    $('#winner').html('<p>Tom hit the wall!</p>');
   } else if (boxTom.crashWith(boxJerry) === true) {
     gameArea.stop();
-    $('#winner').html('Tom caught Jerry!');
+    $('#winner').html('<p>Tom caught Jerry!</p>');
   } else {
     gameArea.clear();
     boxTom.newPos();

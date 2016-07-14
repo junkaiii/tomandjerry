@@ -1,7 +1,91 @@
+body {
+  background-image: url('images/background.gif');
+}
+
+#logo {
+  display: block;
+  width: 800px;
+  margin: 60px auto 50px;
+  -webkit-filter: drop-shadow(12px 20px 30px rgba(0,0,0,0.8));
+    filter: url(#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#000000')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#000000')";
+}
+
+#jerry {
+  position: fixed;
+  right: 50px;
+  bottom: 0px;
+  width: 300px;
+}
+
+#tom {
+  position: fixed;
+  left: -110px;
+  bottom: 0px;
+  width: 660px;
+}
+
 canvas {
   background-color: grey;
   padding-left: 0;
   padding-right: 0;
   margin: 0 auto;
   display: block;
+}
+
+#winner {
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+}
+
+#winner p {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  font-size: 18px;
+}
+
+#instructions {
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+#instructions2 {
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+}
+
+#instructions p {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  font-size: 18px;
+  text-align: center;
+  transition: all 0.3s ease-in;
+}
+
+#instructions p:hover {
+color: blue;
+
+}
+
+#instructions2 p {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  font-size: 12px;
+  text-align: right;
 }
